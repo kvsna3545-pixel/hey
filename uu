@@ -1,0 +1,1623 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090711">
+<meta name="description" content="HelloHub Developer Center - Your ultimate development platform.">
+<title>HelloHub | Developer Center</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #090711;
+  --bg2: #0e0b19;
+  --panel: #151122;
+  --panel2: #1c172b;
+  --border: rgba(190,150,255,.13);
+  --primary: #b66cff;
+  --secondary: #ed82d3;
+  --text: #f8f3ff;
+  --muted: #a49bb5;
+  --gradient: linear-gradient(110deg,#a855f7,#e879c5);
+  --glow: 0 0 45px rgba(168,85,247,.18);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: 'Inter','Kanit',sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+body,button,input {
+  font-family: 'Inter','Kanit',sans-serif;
+}
+
+button,a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  color: inherit;
+}
+
+::selection {
+  background: #a855f7;
+  color: white;
+}
+
+/* BACKGROUND */
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: .15;
+}
+
+.orb.one {
+  background: #a855f7;
+  top: -180px;
+  left: -150px;
+}
+
+.orb.two {
+  background: #e879c5;
+  right: -180px;
+  top: 400px;
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size: 55px 55px;
+  mask-image: linear-gradient(to bottom,black,transparent 90%);
+}
+
+/* NAVBAR */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 76px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: .3s;
+}
+
+.navbar.scrolled {
+  background: rgba(9,7,17,.88);
+  backdrop-filter: blur(20px);
+  border-color: var(--border);
+}
+
+.nav-container {
+  width: min(1200px,92%);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -.8px;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--gradient);
+  box-shadow: 0 0 25px rgba(168,85,247,.3);
+  font-size: 21px;
+}
+
+.logo span {
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  transition: .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: white;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.btn-primary {
+  background: var(--gradient);
+  border: none;
+  box-shadow: 0 5px 25px rgba(168,85,247,.25);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 35px rgba(168,85,247,.4);
+}
+
+.menu-btn {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+  width: min(1200px,92%);
+  min-height: 760px;
+  margin: auto;
+  padding-top: 155px;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 45px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.announcement {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  background: rgba(168,85,247,.09);
+  border: 1px solid rgba(168,85,247,.23);
+  border-radius: 30px;
+  font-size: 11px;
+  color: #d5aaff;
+  margin-bottom: 25px;
+}
+
+.announcement-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c084fc;
+  box-shadow: 0 0 10px #c084fc;
+}
+
+.hero h1 {
+  font-size: clamp(42px,6vw,76px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -3px;
+  margin-bottom: 23px;
+}
+
+.gradient-text {
+  background: linear-gradient(100deg,#c084fc,#f0a5dc,#a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-description {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 2;
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-buttons .btn {
+  padding: 15px 23px;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  margin-top: 36px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.hero-meta span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* DASHBOARD PREVIEW */
+
+.preview-wrap {
+  position: relative;
+  perspective: 1000px;
+}
+
+.preview-glow {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: #9c4dff;
+  filter: blur(140px);
+  opacity: .18;
+  top: 15%;
+  left: 15%;
+}
+
+.preview {
+  position: relative;
+  background: rgba(20,16,33,.88);
+  border: 1px solid rgba(194,148,255,.22);
+  border-radius: 17px;
+  padding: 15px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.5),var(--glow);
+  transform: rotateY(-7deg) rotateX(3deg);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotateY(-7deg) rotateX(3deg); }
+  50% { transform: translateY(-13px) rotateY(-5deg) rotateX(2deg); }
+}
+
+.preview-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 5px 17px;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.preview-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e879c5;
+}
+
+.preview-dots i:nth-child(2) { background:#c084fc; }
+.preview-dots i:nth-child(3) { background:#8b5cf6; }
+
+.preview-title {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.preview-body {
+  display: grid;
+  grid-template-columns: 105px 1fr;
+  min-height: 300px;
+  padding-top: 13px;
+}
+
+.preview-sidebar {
+  border-right: 1px solid var(--border);
+  padding-right: 9px;
+}
+
+.side-item {
+  padding: 10px 8px;
+  color: var(--muted);
+  font-size: 9px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+.side-item.selected {
+  color: #e5c5ff;
+  background: rgba(168,85,247,.15);
+}
+
+.preview-main {
+  padding: 10px 12px;
+}
+
+.preview-main h3 {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.preview-main p {
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.mini-stats {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 8px;
+  margin-top: 17px;
+}
+
+.mini-stat {
+  padding: 13px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.mini-stat small {
+  display: block;
+  color: var(--muted);
+  font-size: 8px;
+  margin-bottom: 8px;
+}
+
+.mini-stat strong {
+  font-size: 19px;
+}
+
+.chart {
+  margin-top: 12px;
+  padding: 14px;
+  height: 110px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+
+.chart-label {
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.chart-bars {
+  height: 60px;
+  display: flex;
+  align-items: end;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.chart-bars i {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top,#8b5cf6,#e879c5);
+  opacity: .85;
+}
+
+.floating-card {
+  position: absolute;
+  padding: 13px 17px;
+  background: #211931;
+  border: 1px solid rgba(194,148,255,.2);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.3);
+  font-size: 11px;
+  z-index: 3;
+}
+
+.floating-card.one {
+  top: 15%;
+  right: -25px;
+}
+
+.floating-card.two {
+  bottom: 8%;
+  left: -35px;
+}
+
+.floating-card strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+/* SECTIONS */
+
+section {
+  width: min(1200px,92%);
+  margin: auto;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 10px;
+  color: #d5aaff;
+  background: rgba(168,85,247,.1);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 7px 13px;
+  margin-bottom: 15px;
+  letter-spacing: 1.5px;
+}
+
+.section-heading h2 {
+  font-size: clamp(27px,4vw,43px);
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* STATS */
+
+.stats {
+  margin-top: 20px;
+  margin-bottom: 120px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  background: rgba(21,17,34,.7);
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  padding: 28px 10px;
+}
+
+.stat {
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat:last-child { border: none; }
+
+.stat strong {
+  display: block;
+  font-size: 30px;
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.stat span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+/* FEATURES */
+
+.features {
+  padding-bottom: 120px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 17px;
+}
+
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg,rgba(27,21,43,.95),rgba(17,14,27,.95));
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 27px;
+  transition: .3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(192,132,252,.5);
+  box-shadow: 0 15px 45px rgba(130,70,200,.1);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: rgba(168,85,247,.13);
+  border: 1px solid rgba(168,85,247,.2);
+  border-radius: 12px;
+  font-size: 22px;
+  margin-bottom: 23px;
+}
+
+.feature-card h3 {
+  font-size: 17px;
+  margin-bottom: 11px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+  min-height: 70px;
+}
+
+.feature-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #d5aaff;
+  font-size: 11px;
+  font-weight: 600;
+  margin-top: 19px;
+}
+
+/* SHOWCASE */
+
+.showcase {
+  padding-bottom: 120px;
+}
+
+.showcase-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+  padding: 45px;
+  background: linear-gradient(120deg,#191328,#21152c);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.showcase-content h2 {
+  font-size: 34px;
+  line-height: 1.3;
+  margin-bottom: 17px;
+}
+
+.showcase-content p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+  margin-bottom: 23px;
+}
+
+.code-window {
+  background: #0b0913;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 19px;
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 10px;
+  margin-bottom: 20px;
+}
+
+.code-window pre {
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 2;
+  color: #d7c5f4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.code-purple { color: #c084fc; }
+.code-pink { color: #f0a5dc; }
+.code-green { color: #86efac; }
+
+/* CTA */
+
+.cta {
+  margin-bottom: 110px;
+  text-align: center;
+  padding: 70px 25px;
+  border: 1px solid rgba(192,132,252,.2);
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 50% 100%,rgba(168,85,247,.2),transparent 70%),
+    #151020;
+}
+
+.cta h2 {
+  font-size: clamp(28px,4vw,43px);
+  margin-bottom: 15px;
+}
+
+.cta p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+/* FOOTER */
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 45px 0 25px;
+  background: rgba(10,8,17,.7);
+}
+
+.footer-inner {
+  width: min(1200px,92%);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.footer-brand p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.8;
+}
+
+.footer-links {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.footer-links a:hover { color: white; }
+
+.copyright {
+  width: min(1200px,92%);
+  margin: 30px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: #71697f;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+/* AUTH MODAL */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(10px);
+}
+
+.modal-overlay.active { display: flex; }
+
+.auth-modal {
+  width: 100%;
+  max-width: 410px;
+  background: #171224;
+  border: 1px solid rgba(192,132,252,.25);
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 20px 90px rgba(0,0,0,.5);
+  animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(15px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.modal-top h2 { font-size: 21px; }
+
+.close-modal {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.auth-modal > p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 22px;
+}
+
+.auth-form label {
+  display: block;
+  font-size: 11px;
+  color: #d6cbe5;
+  margin-bottom: 8px;
+}
+
+.auth-form input {
+  width: 100%;
+  background: #0e0b18;
+  color: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 13px;
+  outline: none;
+  margin-bottom: 17px;
+  font-size: 12px;
+}
+
+.auth-form input:focus {
+  border-color: var(--primary);
+}
+
+.auth-form button {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.modal-note {
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 17px;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  z-index: 500;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%,20px);
+  background: #211831;
+  border: 1px solid rgba(192,132,252,.3);
+  padding: 13px 20px;
+  border-radius: 10px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  box-shadow: var(--glow);
+  text-align: center;
+  max-width: 90%;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+/* ANIMATIONS */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity .7s ease,transform .7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 140px;
+    padding-bottom: 90px;
+    gap: 65px;
+  }
+
+  .hero-content { text-align: center; }
+  .hero-description { margin-left: auto; margin-right: auto; }
+  .hero-buttons,.hero-meta { justify-content: center; }
+  .preview-wrap { width: min(570px,90%); margin: auto; }
+  .feature-grid { grid-template-columns: repeat(2,1fr); }
+  .showcase-box { grid-template-columns: 1fr; }
+}
+
+@media(max-width:700px) {
+  .navbar { height: 66px; }
+
+  .menu-btn { display: block; }
+
+  .nav-links {
+    position: absolute;
+    top: 74px;
+    left: 4%;
+    width: 92%;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px;
+    background: #171224;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.4);
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links a {
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .nav-links a:hover { background: var(--panel2); }
+
+  .nav-actions .login-btn { display: none; }
+
+  .hero {
+    min-height: auto;
+    padding-top: 125px;
+    padding-bottom: 65px;
+  }
+
+  .hero h1 { letter-spacing: -2px; }
+  .hero-description { font-size: 13px; }
+
+  .hero-meta { gap: 12px; flex-wrap: wrap; }
+
+  .preview {
+    transform: none;
+    animation: none;
+  }
+
+  .floating-card.one { right: -12px; }
+  .floating-card.two { left: -12px; }
+
+  .stats {
+    grid-template-columns: repeat(2,1fr);
+    gap: 25px 0;
+    margin-bottom: 85px;
+  }
+
+  .stat:nth-child(2) { border: none; }
+  .stat strong { font-size: 25px; }
+
+  .feature-grid { grid-template-columns: 1fr; }
+  .features,.showcase { padding-bottom: 85px; }
+
+  .showcase-box { padding: 25px; }
+  .showcase-content h2 { font-size: 27px; }
+
+  .cta { padding: 55px 20px; margin-bottom: 75px; }
+
+  .footer-inner { flex-direction: column; }
+  .copyright { flex-direction: column; }
+}
+
+@media(max-width:400px) {
+  .hero h1 { font-size: 39px; }
+  .hero-buttons .btn { width: 100%; }
+  .preview-body { grid-template-columns: 82px 1fr; }
+  .side-item { font-size: 8px; }
+  .floating-card { font-size: 9px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background">
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="grid-bg"></div>
+</div>
+
+<!-- NAVBAR -->
+
+<header class="navbar" id="navbar">
+  <div class="nav-container">
+
+    <a href="#home" class="logo">
+      <div class="logo-icon">H</div>
+      Hello<span>Hub</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#features">Features</a>
+      <a href="#showcase">Developer Tools</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="btn login-btn" onclick="openAuth('login')">
+        Sign In
+      </button>
+      <button class="btn btn-primary" onclick="openAuth('register')">
+        Get Started ↗
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    </div>
+
+  </div>
+</header>
+
+<!-- HERO -->
+
+<main id="home">
+
+<div class="hero">
+
+  <div class="hero-content reveal">
+
+    <div class="announcement">
+      <span class="announcement-dot"></span>
+      HELLOHUB DEVELOPER CENTER
+      <span>✦</span>
+    </div>
+
+    <h1>
+      Build Your<br>
+      <span class="gradient-text">Digital Future.</span>
+    </h1>
+
+    <p class="hero-description">
+      Welcome to HelloHub Developer Center.
+      A centralized platform designed for developers to
+      create, manage, protect and organize their projects
+      with powerful development tools.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="openAuth('register')">
+        Get Started <span>↗</span>
+      </button>
+
+      <a href="#features" class="btn">
+        Explore Features ↓
+      </a>
+    </div>
+
+    <div class="hero-meta">
+      <span>✦ Developer Platform</span>
+      <span>◈ Modern Interface</span>
+      <span>⌘ All-in-One Tools</span>
+    </div>
+
+  </div>
+
+  <!-- DASHBOARD PREVIEW -->
+
+  <div class="preview-wrap reveal">
+
+    <div class="preview-glow"></div>
+
+    <div class="floating-card one">
+      <span style="color:#bfa0ed">✦ Platform</span>
+      <strong>Developer Center</strong>
+    </div>
+
+    <div class="preview">
+
+      <div class="preview-top">
+        <div class="preview-dots">
+          <i></i><i></i><i></i>
+        </div>
+        <div class="preview-title">HelloHub Dashboard</div>
+        <span style="font-size:10px;color:#a49bb5">v1.0.0</span>
+      </div>
+
+      <div class="preview-body">
+
+        <div class="preview-sidebar">
+          <div class="side-item selected">⌂ Overview</div>
+          <div class="side-item">⌘ Scripts</div>
+          <div class="side-item">◇ Obfuscator</div>
+          <div class="side-item">⚙ Settings</div>
+          <div class="side-item">♙ Profile</div>
+        </div>
+
+        <div class="preview-main">
+
+          <h3>Welcome Back!</h3>
+          <p>Your developer workspace.</p>
+
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <small>Total Scripts</small>
+              <strong>--</strong>
+            </div>
+            <div class="mini-stat">
+              <small>Projects</small>
+              <strong>--</strong>
+            </div>
+            <div class="mini-stat">
+              <small>Obfuscations</small>
+              <strong>--</strong>
+            </div>
+            <div class="mini-stat">
+              <small>Account</small>
+              <strong>Free</strong>
+            </div>
+          </div>
+
+          <div class="chart">
+            <div class="chart-label">Workspace Preview</div>
+            <div class="chart-bars">
+              <i style="height:35%"></i>
+              <i style="height:55%"></i>
+              <i style="height:43%"></i>
+              <i style="height:80%"></i>
+              <i style="height:65%"></i>
+              <i style="height:95%"></i>
+              <i style="height:72%"></i>
+              <i style="height:100%"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="floating-card two">
+      <span style="color:#86efac">● Interface Preview</span>
+      <strong>All-in-One Platform</strong>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- STATS -->
+
+<section class="stats reveal">
+
+  <div class="stat">
+    <strong>∞</strong>
+    <span>Development Possibilities</span>
+  </div>
+
+  <div class="stat">
+    <strong>01</strong>
+    <span>Unified Platform</span>
+  </div>
+
+  <div class="stat">
+    <strong>24/7</strong>
+    <span>Workspace Access</span>
+  </div>
+
+  <div class="stat">
+    <strong>100%</strong>
+    <span>Developer Focused</span>
+  </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features" id="features">
+
+  <div class="section-heading reveal">
+    <span class="section-tag">OUR FEATURES</span>
+    <h2>Everything You <span class="gradient-text">Need.</span></h2>
+    <p>
+      Powerful tools designed to make your development
+      workflow easier and more organized.
+    </p>
+  </div>
+
+  <div class="feature-grid">
+
+    <article class="feature-card reveal">
+      <div class="feature-icon">⌘</div>
+      <h3>Script Vault</h3>
+      <p>
+        Store, organize and manage your scripts
+        in one centralized workspace.
+      </p>
+      <a href="#showcase" class="feature-link">
+        Explore Vault →
+      </a>
+    </article>
+
+    <article class="feature-card reveal">
+      <div class="feature-icon">◇</div>
+      <h3>AST Obfuscator</h3>
+      <p>
+        A dedicated code protection workspace
+        designed for Lua and Luau projects.
+      </p>
+      <a href="#showcase" class="feature-link">
+        Explore Obfuscator →
+      </a>
+    </article>
+
+    <article class="feature-card reveal">
+      <div class="feature-icon">⚒</div>
+      <h3>Developer Tools</h3>
+      <p>
+        A collection of utilities to support
+        your development workflow.
+      </p>
+      <a href="#showcase" class="feature-link">
+        Explore Tools →
+      </a>
+    </article>
+
+    <article class="feature-card reveal">
+      <div class="feature-icon">▣</div>
+      <h3>Project Manager</h3>
+      <p>
+        Keep your projects organized and
+        manage your development workspace.
+      </p>
+      <a href="#showcase" class="feature-link">
+        Learn More →
+      </a>
+    </article>
+
+    <article class="feature-card reveal">
+      <div class="feature-icon">♙</div>
+      <h3>User Accounts</h3>
+      <p>
+        Manage your profile and access
+        personalized developer features.
+      </p>
+      <a href="#about" class="feature-link">
+        Learn More →
+      </a>
+    </article>
+
+    <article class="feature-card reveal">
+      <div class="feature-icon">⚙</div>
+      <h3>Admin Center</h3>
+      <p>
+        A centralized management interface
+        for authorized platform administrators.
+      </p>
+      <a href="#about" class="feature-link">
+        Learn More →
+      </a>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- SHOWCASE -->
+
+<section class="showcase" id="showcase">
+
+  <div class="showcase-box reveal">
+
+    <div class="showcase-content">
+
+      <span class="section-tag">DEVELOPER WORKSPACE</span>
+
+      <h2>
+        Designed for<br>
+        <span class="gradient-text">Modern Developers.</span>
+      </h2>
+
+      <p>
+        HelloHub brings your development tools together
+        in one place. Manage your scripts, work with
+        Lua and Luau projects, and build your own
+        development workflow.
+      </p>
+
+      <a href="#features" class="btn btn-primary">
+        Discover Platform ↗
+      </a>
+
+    </div>
+
+    <div class="code-window">
+
+      <div class="code-header">
+        <span>✦ HelloHub.luau</span>
+        <span>LUau</span>
+      </div>
+
+      <pre><span class="code-purple">local</span> HelloHub = {}
+
+HelloHub.Version = <span class="code-green">"1.0.0"</span>
+
+<span class="code-purple">function</span> HelloHub:Initialize()
+
+    <span class="code-purple">local</span> platform = {
+        Name = <span class="code-green">"HelloHub"</span>,
+        Type = <span class="code-green">"Developer Center"</span>,
+        Ready = <span class="code-pink">true</span>
+    }
+
+    <span class="code-purple">return</span> platform
+<span class="code-purple">end</span>
+
+<span class="code-purple">return</span> HelloHub</pre>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="cta reveal" id="about">
+
+  <span class="section-tag">WELCOME TO HELLOHUB</span>
+
+  <h2>
+    Start Building Your <span class="gradient-text">Future.</span>
+  </h2>
+
+  <p>
+    Your development journey starts here.<br>
+    Explore HelloHub and discover your next workflow.
+  </p>
+
+  <button class="btn btn-primary" onclick="openAuth('register')">
+    Join HelloHub ↗
+  </button>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a href="#home" class="logo">
+        <div class="logo-icon">H</div>
+        Hello<span>Hub</span>
+      </a>
+
+      <p>
+        Your Development. Your Workspace.<br>
+        Powered by HelloHub.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#showcase">Developer Tools</a>
+      <a href="#about">About</a>
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    <span>© <span id="year"></span> HelloHub. All rights reserved.</span>
+    <span>Made for Developers ✦</span>
+  </div>
+
+</footer>
+
+<!-- AUTH MODAL -->
+
+<div class="modal-overlay" id="authModal">
+
+  <div class="auth-modal">
+
+    <div class="modal-top">
+      <h2 id="modalTitle">Welcome Back</h2>
+      <button class="close-modal" onclick="closeAuth()">×</button>
+    </div>
+
+    <p id="modalDescription">
+      Sign in to access your developer workspace.
+    </p>
+
+    <form class="auth-form" id="authForm">
+
+      <div id="nameField" style="display:none">
+        <label for="authName">Username</label>
+        <input
+          type="text"
+          id="authName"
+          placeholder="Enter your username"
+          autocomplete="username">
+      </div>
+
+      <label for="authEmail">Email Address</label>
+      <input
+        type="email"
+        id="authEmail"
+        placeholder="you@example.com"
+        autocomplete="email"
+        required>
+
+      <label for="authPassword">Password</label>
+      <input
+        type="password"
+        id="authPassword"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        required minlength="6">
+
+      <button class="btn btn-primary" id="authSubmit" type="submit">
+        Sign In
+      </button>
+
+    </form>
+
+    <div class="modal-note">
+      Authentication is not connected yet.<br>
+      Connect your Supabase Auth project to enable accounts.
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =====================================
+   HELLOHUB DEVELOPER CENTER
+   HOMEPAGE v1.0.0
+===================================== */
+
+/* NAVBAR */
+
+const navbar = document.getElementById("navbar");
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+window.addEventListener("scroll", () => {
+  navbar.classList.toggle("scrolled", window.scrollY > 30);
+});
+
+menuBtn.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("open");
+  menuBtn.textContent = isOpen ? "✕" : "☰";
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.textContent = "☰";
+  });
+});
+
+/* ACTIVE NAVIGATION */
+
+const sections = document.querySelectorAll("main > section, .hero");
+
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+
+      document.querySelectorAll(".nav-links a").forEach(link => {
+        link.classList.toggle(
+          "active",
+          link.getAttribute("href") === "#" + id
+        );
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(section => navObserver.observe(section));
+
+/* SCROLL REVEAL */
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(element => {
+  revealObserver.observe(element);
+});
+
+/* AUTH MODAL */
+
+const authModal = document.getElementById("authModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const authSubmit = document.getElementById("authSubmit");
+const nameField = document.getElementById("nameField");
+
+let authMode = "login";
+
+function openAuth(mode) {
+
+  authMode = mode;
+
+  if (mode === "register") {
+    modalTitle.textContent = "Create Account";
+    modalDescription.textContent =
+      "Create your HelloHub developer account.";
+    authSubmit.textContent = "Create Account";
+    nameField.style.display = "block";
+    document.getElementById("authName").required = true;
+  } else {
+    modalTitle.textContent = "Welcome Back";
+    modalDescription.textContent =
+      "Sign in to access your developer workspace.";
+    authSubmit.textContent = "Sign In";
+    nameField.style.display = "none";
+    document.getElementById("authName").required = false;
+  }
+
+  authModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeAuth() {
+  authModal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+authModal.addEventListener("click", event => {
+  if (event.target === authModal) closeAuth();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeAuth();
+});
+
+/* TOAST */
+
+let toastTimeout;
+
+function showToast(message) {
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimeout);
+
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000);
+}
+
+/* AUTH FORM
+   Demo only - no real authentication.
+*/
+
+document.getElementById("authForm").addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  const email = document.getElementById("authEmail").value;
+  const password = document.getElementById("authPassword").value;
+
+  if (!email || !password) return;
+
+  if (authMode === "register") {
+    const username = document.getElementById("authName").value;
+
+    if (!username.trim()) {
+      showToast("Please enter your username.");
+      return;
+    }
+  }
+
+  showToast(
+    "Authentication is not connected. Please configure Supabase Auth."
+  );
+
+});
+
+/* COPYRIGHT YEAR */
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
